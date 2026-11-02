@@ -24,6 +24,37 @@ npm run start:dev
 
 Если адрес базы изменён в `.env`, укажите тот же адрес при импорте.
 
+### PostgreSQL
+
+Базу данных можно переключить через `.env`, без изменения контроллеров и сервисов.
+Для PostgreSQL установите и запустите сервер, затем из каталога `backend`
+создайте отдельного пользователя и загрузите SQL-заготовки:
+
+```sh
+createuser -h 127.0.0.1 -U postgres --pwprompt prac
+psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -f test/prac.init.sql
+psql -h 127.0.0.1 -U prac -d prac -v ON_ERROR_STOP=1 -f test/prac.films.sql
+psql -h 127.0.0.1 -U prac -d prac -v ON_ERROR_STOP=1 -f test/prac.shedules.sql
+```
+
+SQL-файлы взяты из [заготовки второй части](https://github.com/yandex-praktikum/film-react-nest/tree/feat/postgres/backend/test).
+Они выполняются один раз для новой базы `prac`. Скрипт `prac.init.sql` создаёт базу,
+подключается к ней и создаёт таблицы `films` и `schedules` со связью по `filmId`.
+Автоматическая синхронизация схемы TypeORM отключена.
+
+В `backend/.env` укажите:
+
+```dotenv
+DATABASE_DRIVER=postgres
+DATABASE_URL=postgresql://127.0.0.1:5432/prac
+DATABASE_USERNAME=prac
+DATABASE_PASSWORD=<пароль, заданный при создании пользователя prac>
+```
+
+После изменения `.env` перезапустите бэкенд. Для возврата к MongoDB задайте
+`DATABASE_DRIVER=mongodb` и соответствующий `DATABASE_URL`; логин и пароль
+PostgreSQL в этом режиме не используются.
+
 ### Фронтенд
 
 В другом терминале перейдите в каталог `frontend` и выполните:

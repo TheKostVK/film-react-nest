@@ -4,7 +4,7 @@ import { FilmsController } from './films.controller';
 import { FilmsService } from './films.service';
 
 @Module({
-  imports: [RepositoryModule],
+  imports: [RepositoryModule.forRoot()],
   controllers: [FilmsController],
   providers: [FilmsService],
 })

@@ -4,7 +4,7 @@ import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 
 @Module({
-  imports: [RepositoryModule],
+  imports: [RepositoryModule.forRoot()],
   controllers: [OrderController],
   providers: [OrderService],
 })
