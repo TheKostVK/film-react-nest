@@ -1,11 +1,23 @@
 import { NestFactory } from '@nestjs/core';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
-import 'dotenv/config'
+import { AppConfig } from './app.config.provider';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix("api/afisha");
+  const config = app.get<AppConfig>('CONFIG');
+  app.setGlobalPrefix('api/afisha');
   app.enableCors();
-  await app.listen(3000);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidUnknownValues: true,
+      exceptionFactory: () =>
+        new BadRequestException({ error: 'Некорректные данные заказа' }),
+    }),
+  );
+  app.enableShutdownHooks();
+  await app.listen(config.port);
 }
 bootstrap();
