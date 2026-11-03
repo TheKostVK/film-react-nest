@@ -31,11 +31,18 @@ npm run start:dev
 ```sh
 npm ci
 cp .env.example .env
-npm run dev
 ```
 
-Откройте адрес, который напечатает Vite. Фронтенд обращается к локальному API
-на порту `3000`; при смене порта обновите `VITE_API_URL` и `VITE_CDN_URL` в `.env`.
+В локальном `.env` замените адреса учебной заглушки на адреса своего бэкенда:
+
+```dotenv
+VITE_API_URL=http://localhost:3000/api/afisha
+VITE_CDN_URL=http://localhost:3000/content/afisha
+```
+
+Файл `.env` игнорируется Git; исходный `.env.example` сохранён.
+При смене порта бэкенда обновите оба адреса. Запустите `npm run dev`
+и откройте адрес, который напечатает Vite.
 
 API описан в `film.yml`, коллекция запросов — в `film.postman.json`.
 Афиши доступны по адресу `http://localhost:3000/content/afisha/` с именем файла.

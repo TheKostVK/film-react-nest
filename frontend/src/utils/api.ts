@@ -80,7 +80,7 @@ export interface Session {
     daytime: string;
     day: string;
     time: string;
-    hall: number;
+    hall: string;
     rows: number;
     seats: number;
     price: number;
