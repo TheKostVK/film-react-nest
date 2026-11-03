@@ -46,8 +46,12 @@ VITE_CDN_URL=http://localhost:3000/content/afisha
 
 API описан в `film.yml`, коллекция запросов — в `film.postman.json`.
 Афиши доступны по адресу `http://localhost:3000/content/afisha/` с именем файла.
+Поле `hall` в ответе расписания передаётся строкой согласно исходному OpenAPI.
+В MongoDB номер зала остаётся числом; репозиторий преобразует его для ответа API.
 
 ### Проверки
 
 В каждом из каталогов `backend` и `frontend` доступны `npm run build` и
 `npm run lint`.
+
+В `backend` команда `npm run test:e2e` проверяет HTTP API и валидацию без внешней БД.

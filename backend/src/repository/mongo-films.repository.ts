@@ -6,14 +6,14 @@ import {
   ScheduleDto,
 } from '../films/dto/films.dto';
 import { FilmsRepository } from './films.repository';
-import { filmSchema } from './films.schema';
+import { FilmRecord, filmSchema, ScheduleRecord } from './films.schema';
 
 @Injectable()
 export class MongoFilmsRepository
   extends FilmsRepository
   implements OnModuleDestroy
 {
-  private readonly films: Model<FilmWithScheduleDto>;
+  private readonly films: Model<FilmRecord>;
 
   constructor(@Inject('DATABASE') private readonly connection: Connection) {
     super();
@@ -101,11 +101,11 @@ export class MongoFilmsRepository
     };
   }
 
-  private toScheduleDto(session: ScheduleDto): ScheduleDto {
+  private toScheduleDto(session: ScheduleRecord): ScheduleDto {
     return {
       id: session.id,
       daytime: session.daytime,
-      hall: session.hall,
+      hall: String(session.hall),
       rows: session.rows,
       seats: session.seats,
       price: session.price,
