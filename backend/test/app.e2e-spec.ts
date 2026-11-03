@@ -31,7 +31,7 @@ describe('Афиша API (e2e)', () => {
   const session: ScheduleDto = {
     id: 'f2e429b0-685d-41f8-a8cd-1d8cb63b99ce',
     daytime: '2024-06-28T10:00:53+03:00',
-    hall: '0',
+    hall: 0,
     rows: 5,
     seats: 10,
     price: 350,
@@ -117,7 +117,7 @@ describe('Афиша API (e2e)', () => {
       .expect({ total: 1, items: [details] });
   });
 
-  it('возвращает расписание с номером зала строкой', () => {
+  it('возвращает расписание с номером зала числом', () => {
     return request(app.getHttpServer())
       .get(schedulePath)
       .expect(200)

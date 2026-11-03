@@ -1,12 +1,7 @@
 import { Schema } from 'mongoose';
 import { FilmWithScheduleDto, ScheduleDto } from '../films/dto/films.dto';
 
-export type ScheduleRecord = Omit<ScheduleDto, 'hall'> & { hall: number };
-export type FilmRecord = Omit<FilmWithScheduleDto, 'schedule'> & {
-  schedule: ScheduleRecord[];
-};
-
-const scheduleSchema = new Schema<ScheduleRecord>(
+const scheduleSchema = new Schema<ScheduleDto>(
   {
     id: { type: String, required: true },
     daytime: { type: String, required: true },
@@ -19,7 +14,7 @@ const scheduleSchema = new Schema<ScheduleRecord>(
   { _id: false, id: false },
 );
 
-export const filmSchema = new Schema<FilmRecord>(
+export const filmSchema = new Schema<FilmWithScheduleDto>(
   {
     id: { type: String, required: true, unique: true },
     rating: { type: Number, required: true },
