@@ -82,5 +82,3 @@ API описан в `film.yml`, коллекция запросов — в `film
 
 В каждом из каталогов `backend` и `frontend` доступны `npm run build` и
 `npm run lint`.
-
-В `backend` команда `npm run test:e2e` проверяет HTTP API и валидацию без внешней БД.
